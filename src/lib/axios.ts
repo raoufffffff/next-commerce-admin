@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // رابط الباك ايند الخاص بك
-const API_URL = "https://api.next-commerce.shop";
+const API_URL = "https://api.next-commerce.shop/api";
  
 export const api = axios.create({
   baseURL: API_URL,
@@ -19,3 +19,4 @@ api.interceptors.response.use(
   }
 
 );
+
