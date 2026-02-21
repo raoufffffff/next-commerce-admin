@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { 
   Menu, 
-  Bell, 
   User, 
   Globe, 
   Settings,
@@ -167,5 +166,6 @@ const Header = ({
     </motion.header>
   );
 };
+
 
 export default Header;
