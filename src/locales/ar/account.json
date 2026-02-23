@@ -70,5 +70,14 @@
   "FreePlan": "خطة مجانية",
   "UpgradeNow": "قم بالترقية الآن",
   "StoreOwner": "صاحب المتجر",
-  "UnlimitedOrders": "طلبات غير محدودة"
+  "UnlimitedOrders": "طلبات غير محدودة",
+  "Total Stores": "جميع المتاجر",
+  "Active Stores": "المتاجر النشطة",
+  "Your Stores": "متاجرك",
+  "Upgrade": "ترقية",
+  "account_settings": "إعدادات الحساب",
+  "logout": "تسجيل الخروج",
+  "Delete Store?": "حذف المتجر؟",
+  "Yes, Delete": "نعم، احذف",
+  "cancel": "الغاء"
 }

@@ -254,7 +254,7 @@ export interface orders {
        Tracking?: string;  
       SendTo?: boolean;  
       home: boolean;  
-      Offers?: boolean;
+      offer?: boolean;
       freeDelevry?: boolean;
       offerNmae?: string;
       note?: string;  

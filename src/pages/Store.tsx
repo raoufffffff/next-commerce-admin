@@ -1,9 +1,9 @@
 "use client";
 import PageContainer from '@/components/ui/PageContainer';
 import { useOrders } from '@/features/orders/hooks/useOrders';
+import { useProducts } from '@/features/products/hooks/UseProducts';
 import Stats from '@/features/store/components/Stats';
 import StatusSummary from '@/features/store/components/StatusSummary';
-import Visits from '@/features/store/components/Visits';
 import { useStore } from '@/features/store/hooks/UseStore';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
@@ -17,18 +17,18 @@ const Store = () => {
     // 2. orders will be 'orders[] | undefined'
     const { data: orders } = useOrders(id);
 
+    const {data: product} = useProducts(id)
     return (
         <PageContainer
             about={store?.storeName}
             title={t("dashboard")}
         >
             {/* FIX: Add '|| []' to handle the undefined loading state */}
-            <Stats orders={orders || []} visit={0} /> 
+            <Stats id={id} product={product?.length || 0} orders={orders || []}  /> 
             
-            <Visits visit={[]} />
             
             {/* FIX: Add '|| []' here too */}
-            <StatusSummary orders={orders || []} />
+            <StatusSummary id={id} orders={orders || []} />
         </PageContainer>
     );
 }

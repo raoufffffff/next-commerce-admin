@@ -19,6 +19,16 @@ import ArProduct from "./locales/ar/product.json"
 import ArCategories from "./locales/ar/Categories.json"
 import ArDelivery from "./locales/ar/Delivery.json"
 import ArSubscriptions from "./locales/ar/subscriptions.json"
+
+// fr
+import FrAuth from "./locales/fr/FrAuth.json"
+import FrAccount from "./locales/fr/account.json"
+import Frstore from "./locales/fr/store.json"
+import FrOrder from "./locales/fr/order.json"
+import FrProduct from "./locales/fr/product.json"
+import FrCategories from "./locales/fr/Categories.json"
+import FrDelivery from "./locales/fr/Delivery.json"
+import FrSubscriptions from "./locales/fr/subscriptions.json"
  
 
 
@@ -46,7 +56,17 @@ i18n
                 Categories: ArCategories,
                 Delivery: ArDelivery,
                 subscriptions: ArSubscriptions
-            }
+            },
+             fr: {
+                auth: FrAuth,
+                account: FrAccount,
+                store: Frstore,
+                order: FrOrder,
+                product: FrProduct,
+                Categories: FrCategories,
+                Delivery: FrDelivery,
+                subscriptions: FrSubscriptions
+             },
         },
         fallbackLng: "en", // default language
         ns: ["admin", "store", "product", "order", "delevry"], // list of namespaces
