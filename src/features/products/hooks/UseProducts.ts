@@ -16,3 +16,20 @@ export const useProducts = (storeId: string | undefined) => {
     staleTime: 1000 * 60 * 60,
   });
 };
+
+
+
+export const useOneProducts = (producId: string | undefined) => {
+  return useQuery({
+    queryKey: [ producId],
+    // Update return type to Promise<orders[]> (Array of orders)
+    queryFn: async (): Promise<product> => {
+      const { data } = await api.get(`/public/products/one/${producId}`);
+      // Ensure this actually returns an array. If backend wraps it, use data.result
+      return data.result || []; 
+    },
+    enabled: !!producId,
+    retry: false,
+    staleTime: 1000 * 60 * 60,
+  });
+};

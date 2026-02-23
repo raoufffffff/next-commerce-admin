@@ -3,9 +3,9 @@ import BoxCard from '@/components/ui/BoxCard';
 import { statuses } from '@/features/orders/constants/ordersStatusIcons';
 import type { orders } from '@/types';
 import { useTranslation } from 'react-i18next';
-import { TrendingUp, Package } from 'lucide-react';
+import {  Package } from 'lucide-react';
 
-const StatusSummary = ({ orders = [] }: { orders: [] | orders[] | undefined }) => {
+const StatusSummary = ({ orders = [], id }: { orders: [] | orders[] | undefined, id: string | undefined }) => {
     const { t } = useTranslation("store");
 
     const getStatusData = (statusKey: string) => {
@@ -17,68 +17,11 @@ const StatusSummary = ({ orders = [] }: { orders: [] | orders[] | undefined }) =
 
     // Calculate total for percentage
     const grandTotal = orders.length;
-    const grandValue = orders.reduce((sum, order) => sum + (order.price || 0), 0);
 
     return (
-        <BoxCard about={t("OrderSummary")} link={'orders'}>
+        <BoxCard about={t("OrderSummary")}  link={`store/${id}/orders`}>
             {/* Summary Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                {/* Total Orders */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="relative overflow-hidden p-5 rounded-2xl bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-100"
-                >
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <p className="text-sm text-gray-600 font-medium mb-1">
-                                {t("Total")} {t("Orders") || "Orders"}
-                            </p>
-                            <p className="text-3xl font-bold text-gray-800">{grandTotal}</p>
-                        </div>
-                        <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-200/50">
-                            <Package className="w-7 h-7 text-white" />
-                        </div>
-                    </div>
-                    <motion.div
-                        animate={{
-                            scale: [1, 1.2, 1],
-                            opacity: [0.1, 0.15, 0.1]
-                        }}
-                        transition={{ duration: 4, repeat: Infinity }}
-                        className="absolute -bottom-6 -right-6 w-24 h-24 bg-indigo-400 rounded-full blur-2xl"
-                    />
-                </motion.div>
-
-                {/* Total Value */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 0.1 }}
-                    className="relative overflow-hidden p-5 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-100"
-                >
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <p className="text-sm text-gray-600 font-medium mb-1">
-                                {t("Total")} {t("Value")}
-                            </p>
-                            <p className="text-3xl font-bold text-gray-800">{grandValue} DA</p>
-                        </div>
-                        <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-green-200/50">
-                            <TrendingUp className="w-7 h-7 text-white" />
-                        </div>
-                    </div>
-                    <motion.div
-                        animate={{
-                            scale: [1, 1.2, 1],
-                            opacity: [0.1, 0.15, 0.1]
-                        }}
-                        transition={{ duration: 4, repeat: Infinity }}
-                        className="absolute -bottom-6 -right-6 w-24 h-24 bg-green-400 rounded-full blur-2xl"
-                    />
-                </motion.div>
-            </div>
+          
 
             {/* Status Table */}
             <div className="overflow-hidden rounded-2xl border border-gray-200">

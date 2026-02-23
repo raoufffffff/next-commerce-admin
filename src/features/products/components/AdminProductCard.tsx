@@ -5,6 +5,7 @@ import Modal from "@/components/ui/Madel"; // Note: You might want to rename fil
 import { ActionAlert, AlertItemPreview } from "@/components/ui/ActionAlert";
 import { useDeleteProduct, useUpdateProduct } from "@/features/AddProduct/hooks/useProductManagement";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 interface AdminProductCardProps {
   product: product;
@@ -113,13 +114,7 @@ const AdminProductCard = ({ product,   storeId, domain }: AdminProductCardProps)
           </div>
 
           {/* Quick Edit Button */}
-          <button
-            // onClick={() => onEdit(product)}
-            className="absolute top-3 right-3 p-2.5 bg-white text-slate-700 rounded-full hover:bg-purple-600 hover:text-white shadow-lg transition-all duration-300 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0"
-            title="Edit Product"
-          >
-            <Edit size={16} />
-          </button>
+          
 
           {/* Price Overlay */}
           <div className="absolute bottom-3 right-3">
@@ -206,15 +201,30 @@ const AdminProductCard = ({ product,   storeId, domain }: AdminProductCardProps)
           >
             {isVisible ? <Eye size={14} /> : <EyeOff size={14} />}
             <span>{isVisible ? t("Visible") : t("Hidden")}</span>
-          </button>
 
+          </button>
+          <div>
+<button
+className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+title="Edit Product"
+
+>
+
+<Link
+to={`/store/${storeId}/edete-product/${product._id}`}
+// onClick={() => onEdit(product)}
+>
+            <Edit size={16} />
+          </Link>
+              </button>
           <button
             onClick={() => setShowDeleteModal(true)}
             className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
             title="Delete Product"
-          >
+            >
             <Trash2 size={16} />
           </button>
+            </div>
         </div>
       </div>
 

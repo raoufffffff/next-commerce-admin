@@ -54,7 +54,7 @@ export const useDeleteProduct = (id: string) => {
 };
 
 
-export const useUpdateProduct = (storeId: string) => {
+export const useUpdateProduct = (storeId: string | undefined) => {
   // Assuming useProducts uses the storeId to fetch the list
   const { refetch } = useProducts(storeId); 
 

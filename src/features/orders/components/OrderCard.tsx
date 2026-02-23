@@ -21,6 +21,7 @@ import {
     OrderStatusBadge
 } from "./Ordercardcomponents";
 import type { deliveryCompany, orders } from "@/types";
+import axios from "axios";
 
 interface OrderCardProps {
     order: orders;
@@ -113,15 +114,39 @@ const OrderCard = ({
         setShowNoteEditor(false);
     };
 
+     const handleSendToDelivery = async ( ) => {
+
+        try {
+            const response = await axios.post(`https://next-delvry.vercel.app/send-order`, {
+                company: {
+                    name: companyLiv?.name ,
+                    Token: companyLiv?.token,
+                    Key: companyLiv?.key
+                },
+                order: order
+            });
+
+ 
+            if (response.data) {
+                // تحديث القائمة فوراً بعد الإرسال الناجح
+        setShowSendConfirm(false);
+                handleStatusChange('in company');
+
+            } else {
+                return { success: false, message: "لم يتم استلام رد صحيح" };
+            }
+
+        } catch (err) {
+             
+        }
+    }
+
     const handleDeleteConfirm = () => {
         deleteOrder(myorder._id || "");
         setShowDeleteModal(false);
     };
 
-    const handleSendToDelivery = () => {
-        setShowSendConfirm(false);
-        handleStatusChange('in company');
-    };
+   
 
     // Computed values
     const currentStatus = statuses.find((s) => s.key === myorder.status) || statuses[0];
@@ -207,7 +232,7 @@ const OrderCard = ({
                             {myorder?.productData?.name || 'N/A'}
                         </h4>
 
-                        <OrderOfferBadge offerName={myorder.Offers ? myorder.offerNmae : undefined} />
+                        <OrderOfferBadge offerName={myorder.offer ? myorder.offerNmae : undefined} />
                         <OrderVariants size={myorder.size} color={myorder.color} />
                         <OrderCustomerInfo
                             name={myorder.name}

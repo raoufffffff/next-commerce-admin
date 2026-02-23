@@ -11,6 +11,7 @@ import Contact from "@/pages/Contact";
 import CreateStore from "@/pages/CreateStore";
 import DeliveryCompanies from "@/pages/DeliveryCompanies";
 import DeliveryPrice from "@/pages/DeliveryPrice";
+import EdeteProduct from "@/pages/EdeteProduct";
 import FAQ from "@/pages/FAQ";
 import ForgotPasswordPage from "@/pages/ForgotPasswordPage";
 import LoginPage from "@/pages/LoginPage";
@@ -72,6 +73,8 @@ export const AppRoutes = () => {
             <Route index element={<Store />} />
             <Route path="orders" element={<Orders />} />
             <Route path="products" element={<Products />} />
+            <Route path="edete-product/:product" element={<EdeteProduct />} />
+            
             <Route path="add-product" element={<AddProduct />} />
             <Route path="pixals" element={<Pixals />} />
             <Route path="categories" element={<Categories />} />

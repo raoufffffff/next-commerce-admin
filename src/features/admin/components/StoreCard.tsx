@@ -100,9 +100,10 @@ const [showDeleteModal, setShowDeleteModal] = useState(false);
           onClose={() => setShowDeleteModal(false)}
           onConfirm={handleDelete}
           isLoading={isPending}
-          title="Delete Store?"
+          title={t("Delete Store?")}
           variant="danger" // Makes it Red
-          confirmText="Yes, Delete"
+          confirmText={t("Yes, Delete")}
+          cancelText={t("cancel")}
           description={
             <span>
               {t("You are about to delete")} <span className="font-bold text-gray-800">"{store.storeName}"</span>. 
