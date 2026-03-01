@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
+import ReactPixel from 'react-facebook-pixel';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const RegisterPage = () => {
       };
 
       const res = await api.post("/auth/register", payload);
-
+handlePixalClick()
       if (res.data?.good || res.data?._id) {
         toast.success(t('success_register'));
         navigate("/");
@@ -51,7 +52,12 @@ const RegisterPage = () => {
       setIsRegistering(false);
     }
   };
-
+ const handlePixalClick = () => {
+        ReactPixel.track('SubmitApplication', {
+            content_name: 'SaaS Partner Program', // Optional: Name of what they applied for
+            content_category: 'Partnership'       // Optional: Category
+        });
+    };
   const features = [
     { icon: "🎨", title: "تصميم احترافي", desc: "واجهة متجر عصرية وجذابة", color: "purple" },
     { icon: "📱", title: "متوافق مع الجوال", desc: "يعمل على جميع الأجهزة", color: "blue" },

@@ -138,5 +138,18 @@
   "ChooseYourDeal": "اختر عرضك",
   "Selectthebestoptionforyourbusiness": "اختر الخيار الأنسب لنشاطك التجاري",
   "Save": "وفر",
-  "You_can_upgrade_or_cancel_anytime_from_your_account_settings": "يمكنك الترقية أو الإلغاء في أي وقت من إعدادات حسابك"
+  "You_can_upgrade_or_cancel_anytime_from_your_account_settings": "يمكنك الترقية أو الإلغاء في أي وقت من إعدادات حسابك",
+"plan_starter_name": "الباقة الأساسية (Starter)",
+  "plan_growth_name": "باقة النمو (Growth)",
+  "plan_scale_name": "باقة التوسع (Scale)",
+  "per_month": "للشهر",
+  "most_popular": "الأكثر رواجاً",
+   "up_to_150_orders": "ما يصل إلى 150 طلب",
+  "up_to_290_orders": "ما يصل إلى 290 طلب",
+  "up_to_5000_orders": "ما يصل إلى 5000 طلب",
+  
+  "everything_in_starter": "كل ما في الباقة الأساسية",
+  "everything_in_growth": "كل ما في باقة النمو",
+  "orders": "طلب",
+  "all_plans_monthly_billing": "جميع الخطط - الفواتير الشهرية"
 }

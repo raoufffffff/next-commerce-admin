@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import ReactPixel from 'react-facebook-pixel';
 
 const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,7 +23,7 @@ const LoginPage = () => {
     setIsLoading(true);
     try {
       const res = await api.post("/auth/login", data);
-      
+      handlePixalClick()
       if (res.data?._id) {
         toast.success(t('success_login'));
         window.location.replace("/"); 
@@ -47,7 +48,13 @@ const LoginPage = () => {
       }
     }
   };
-
+ const handlePixalClick = () => {
+        ReactPixel.track('StartTrial', {
+            value: '0.00',
+            currency: 'DZD',
+            predicted_ltv: '29.99' // Optional: Predicted Lifetime Value
+        });
+    };
  
 
   return (

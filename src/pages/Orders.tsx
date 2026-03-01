@@ -130,7 +130,7 @@ const Orders = () => {
             title={t("Orders")}
         >
             {/* PRO BANNER */}
-            {!user?.isPaid && <UpgradeYourPlan ordersUsed={user?.ordersCount || 0} />}
+             <UpgradeYourPlan isPaid={user?.isPaid || false} ordersUsed={user?.ordersCount || 0} maxOrder={user?.maxOrder || 0} />
             
             {/* MODALS */}
             {showTutorial && (

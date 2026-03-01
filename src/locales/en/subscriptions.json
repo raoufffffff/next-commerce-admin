@@ -135,5 +135,19 @@
   "ChooseYourDeal": "Choose Your Deal",
   "Selectthebestoptionforyourbusiness": "Select the best option for your business",
   "Save": "Save",
-  "You_can_upgrade_or_cancel_anytime_from_your_account_settings": "You can upgrade or cancel anytime from your account settings"
+  "You_can_upgrade_or_cancel_anytime_from_your_account_settings": "You can upgrade or cancel anytime from your account settings",
+  "plan_starter_name": "Starter",
+  "plan_growth_name": "Growth",
+  "plan_scale_name": "Scale",
+  "per_month": "per month",
+  "most_popular": "Most Popular",
+   "up_to_150_orders": "Up to 150 orders",
+  "up_to_290_orders": "Up to 290 orders",
+  "up_to_5000_orders": "Up to 5000 orders",
+  
+  "everything_in_starter": "Everything in Starter",
+  "everything_in_growth": "Everything in Growth",
+    "orders": "order",
+    "all_plans_monthly_billing": "all plans monthly billing"
+
 }

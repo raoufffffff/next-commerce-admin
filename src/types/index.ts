@@ -28,6 +28,7 @@ export interface SectionLabelProps {
 
 
 export interface SidebarProps {
+  max: number;
   isCollapsed: boolean;
   toggleSidebar: () => void;
   name?: string;       // Add ? (Optional)
@@ -129,7 +130,7 @@ export interface PaymentInfo {
 export interface OfferPayload {
   user: string;
   price: number;
-  OfferTypeValue: Date | string; // Date or string depending on your logic
+  orders:number; // Date or string depending on your logic
   offerTitle: string;
   PaymentImage: string;
   userName: string;
@@ -141,7 +142,7 @@ export interface PlanOffer {
   _id: string;
   userId:string,
     price: number,
-    OfferTypeValue: string,
+    orders: number,
     offerTitle: string,
     PaymentImage: string,
     userName: string,
@@ -165,7 +166,8 @@ export  interface User {
   isPaid: boolean; // هل دفع الاشتراك؟
   ordersCount: number,
   repoName: string,
-
+   maxOrder: number
+   orders: number
 }
 
 

@@ -1,4 +1,4 @@
-import    { useEffect, useState, type ChangeEvent } from 'react';
+import { useEffect, useState, type ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
@@ -12,8 +12,7 @@ import { handleImageUploadToImgbb } from '@/utils/uploadImage';
 // Components
 import PageContainer from '@/components/ui/PageContainer';
 import ImageInput from '@/components/ui/ImageInput';
- 
- import PaymentDetails from '@/features/Upgrade/components/PaymentDetails';
+import PaymentDetails from '@/features/Upgrade/components/PaymentDetails';
 import OrderSummary from '@/features/Upgrade/components/OrderSummary';
 import ConfirmationModal from '@/features/Upgrade/components/ConfirmationModal';
 
@@ -31,7 +30,7 @@ const Checkout = () => {
   const [userInfo, setUserInfo] = useState({
     user: user?._id || "",
     price: 0,
-    OfferTypeValue: "",
+    orders: "",
     offerTitle: "",
     PaymentImage: "",
     userName: user?.name || "",
@@ -56,25 +55,23 @@ const Checkout = () => {
         return;
       }
 
+      const details = getPlanDetails(savedData.plan, savedData.orders, savedData.price);
+      setOrderDetails(details);
+
       setUserInfo((prev) => ({
         ...prev,
-        price: savedData.price || 0,
+        price: parseInt(savedData.price?.replace(/,/g, '') || '0'),
         offerTitle: savedData.plan || "",
-        OfferTypeValue: savedData.choiceType || ""
+        orders: savedData.orders || ""
       }));
-
-      // Calculate display details
-      const details = getPlanDetailsInternal(savedData.plan, savedData.choiceType, t);
-      setOrderDetails(details);
+ 
     } catch (error) {
       console.error("Error parsing plan data", error);
       navigate('/upgrade');
     }
-  }, [navigate, t]);
-
+  }, [navigate]);
 
   // --- Handlers ---
-
   const handleImageUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
@@ -85,40 +82,33 @@ const Checkout = () => {
       if (url) {
         setUserInfo(prev => ({ ...prev, PaymentImage: url }));
         toast.success(t("Image uploaded successfully"));
-        setShowConfirmModal(true); // Automatically show modal on success
+        setShowConfirmModal(true);
       }
     } catch (err) {
       console.error(err);
       toast.error(t("Upload failed"));
     } finally {
       setUploading(false);
-      e.target.value = ""; 
+      e.target.value = "";
     }
   };
 
   const handleSendPayment = async () => {
-    // Basic date calculator for the payload
-    const getMonths = (val: string) => {
-        const d = new Date();
-        d.setMonth(d.getMonth() + parseInt(val));
-        return d;
-    }
-
     const finalPayload = {
       ...userInfo,
-      price: parseInt(orderDetails?.price.replace(/,/g, '') || "0"),
-      OfferTypeValue: getMonths(orderDetails?.value || "0"), // Send actual Date object or string depending on API
+      price: parseInt(orderDetails?.price?.replace(/,/g, '') || "0"),
+      orders: orderDetails?.orders,
       offerTitle: orderDetails?.title,
-    }; 
+    };
 
     try {
       postOffer(finalPayload, {
-        onSuccess: () => { 
-             navigate('/subscriptions');
-             toast.success(t("Request sent successfully"));
+        onSuccess: () => {
+          navigate('/subscriptions');
+          toast.success(t("Request sent successfully"));
         },
         onError: () => {
-             toast.error(t("Something went wrong"));
+          toast.error(t("Something went wrong"));
         }
       });
     } catch (error) {
@@ -127,7 +117,6 @@ const Checkout = () => {
       setShowConfirmModal(false);
     }
   };
-
 
   if (!orderDetails) return null;
 
@@ -141,14 +130,14 @@ const Checkout = () => {
 
           {/* LEFT COLUMN: Payment & Upload */}
           <div className="lg:col-span-2 space-y-6">
-            
+
             {/* 1. Payment Info Card */}
             <PaymentDetails paymentInfo={paymentInfo} />
 
             {/* 2. Proof of Payment Section */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
               <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <svg className="w-5 h-5 text-teal-500" fill="none" viewBox="0 24 24" stroke="currentColor">
+                <svg className="w-5 h-5 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 {t("Confirm_Your_Payment")}
@@ -157,7 +146,9 @@ const Checkout = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* WhatsApp Option */}
                 <a
-                  href={`https://wa.me/${paymentInfo.phone}?text=${encodeURIComponent(`Hello, I paid ${orderDetails?.price} DZD for the ${orderDetails?.title}. Here is the receipt.`)}`}
+                  href={`https://wa.me/${paymentInfo.phone}?text=${encodeURIComponent(
+                    `Hello, I paid ${orderDetails?.price} DZD for the ${orderDetails?.title} plan (${orderDetails?.orders} orders). Here is the receipt.`
+                  )}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-green-200 rounded-xl bg-green-50 hover:bg-green-100 transition-all cursor-pointer group"
@@ -171,11 +162,11 @@ const Checkout = () => {
 
                 {/* Upload Option */}
                 <div className="flex flex-col items-center justify-center">
-                  <ImageInput 
-                    className="w-full h-full min-h-[160px]    rounded-xl hover:border-purple-400 hover:bg-purple-50 transition-all" 
-                    label={t("Upload_Screenshot")} 
-                    uploading={uploading} 
-                    onImageSelected={handleImageUpload} 
+                  <ImageInput
+                    className="w-full h-full min-h-[160px] rounded-xl hover:border-purple-400 hover:bg-purple-50 transition-all"
+                    label={t("Upload_Screenshot")}
+                    uploading={uploading}
+                    onImageSelected={handleImageUpload}
                   />
                 </div>
               </div>
@@ -202,42 +193,26 @@ const Checkout = () => {
   );
 };
 
+// --- Plan Details Helper ---
+// Maps the data saved by PlanCard (plan name, orders, price) into display-ready details
+const getPlanDetails = (plan: string, orders: string, price: string) => {
+  const planMap: Record<string, { title: string; desc: string }> = {
+    'starter':    { title: 'Starter Plan',    desc: 'Basic monthly access' },
+    'growth':     { title: 'Growth Plan',     desc: 'Most popular choice' },
+    'scale':      { title: 'Scale Plan',      desc: 'Maximum performance' },
+  };
 
-// Helper logic for Plan Details (kept here for simplicity, or move to utils)
-const getPlanDetailsInternal = (plan: string, choiceType: string, t: any) => {
-    const isOffer = choiceType === 'offer';
+  // Fallback: use the raw plan string as title if id not in map
+  const match = planMap[plan.toLowerCase()] ?? { title: plan, desc: '' };
 
-    switch (plan) {
-        case 'monthly':
-            return {
-                title: isOffer ? t("Double_Starter_Pack") : t("Standard_Monthly"),
-                value: isOffer ? "2" : "1",
-                price: isOffer ? "2,500" : "1,900",
-                term: isOffer ? t("2_Months") : t("1_Month"),
-                savings: isOffer ? "1,300 DZD" : null,
-                desc: isOffer ? t("Special_Seasonal_Offer") : t("Regular_Monthly_Plan")
-            };
-        case 'quarterly':
-            return {
-                title: isOffer ? t("Quarterly_Plus") : t("Standard_Quarterly"),
-                value: isOffer ? "4" : "3",
-                price: "4,900",
-                term: isOffer ? t("4_Months") : t("3_Months"),
-                savings: isOffer ? t("1_Month_Free") : null,
-                desc: isOffer ? t("Limited_Time_Upgrade") : t("Regular_Quarterly_Plan")
-            };
-        case 'semi_annual':
-            return {
-                title: isOffer ? t("Yearly_Pro_Access") : t("Standard_Semi-Annual"),
-                value: isOffer ? "7" : "6",
-                price: "9,000",
-                term: isOffer ? t("7_Months") : t("6_Months"),
-                savings: isOffer ? t("Best_Value") : null,
-                desc: isOffer ? t("VIP_Deal") : t("Regular_6_Months_Plan")
-            };
-        default:
-            return null;
-    }
+  return {
+    title: match.title,
+    desc: match.desc,
+    orders: orders,   // e.g. "150", "290", "5000"
+    price: price,     // e.g. "990", "1,500", "1,900"
+    currency: 'DZD',
+    term: 'per month',
+  };
 };
 
 export default Checkout;
