@@ -18,14 +18,7 @@ const OrderSummary = ({ orderDetails }: OrderSummaryProps) => {
   const { t } = useTranslation("subscriptions");
 
   // Helper function to calculate date
-  const getFutureDate = (monthsToAdd: string) => {
-    const date = new Date();
-    date.setMonth(date.getMonth() + parseInt(monthsToAdd));
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    return `${month}-${day}-${year}`;
-  };
+   
 
   return (
     <div className="bg-white rounded-2xl shadow-lg border border-gray-100 sticky top-8 overflow-hidden">
@@ -50,9 +43,8 @@ const OrderSummary = ({ orderDetails }: OrderSummaryProps) => {
         <div className="border-t border-dashed border-gray-200 my-4"></div>
 
         <div className="space-y-3">
-          <SummaryRow label={t("Billing_Cycle")} value={orderDetails.term} />
-          <SummaryRow label={t("Duration")} value={getFutureDate(orderDetails.value)} />
-          <SummaryRow label={t("Features")} value={t("All_Premium_Features")} />
+          <SummaryRow label={t("Billing_Cycle")} value={t("per_month")} />
+           <SummaryRow label={t("Features")} value={t("All_Premium_Features")} />
         </div>
 
         <div className="mt-6 bg-purple-50 rounded-xl p-4 flex justify-between items-center border border-purple-100">

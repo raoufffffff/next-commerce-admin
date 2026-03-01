@@ -6,18 +6,20 @@ interface DeliverySendConfirmationProps {
     onConfirm: () => void;
     onCancel: () => void;
     showSendConfirm: boolean
-    order: orders
+    order: orders;
+    isLoading: boolean
 }
 
 
  
-const DeliverySendConfirmation = ({ onConfirm, onCancel, showSendConfirm, order }: DeliverySendConfirmationProps) => {
+const DeliverySendConfirmation = ({ onConfirm, onCancel, showSendConfirm, order, isLoading }: DeliverySendConfirmationProps) => {
         const { t } = useTranslation("order");
 
     return (
          <ActionAlert
                           isOpen={showSendConfirm}
                           onClose={onCancel}
+                          isLoading={isLoading}
                           onConfirm={onConfirm}
                           title={t("send order?")}
                           variant="success" // Makes it Red

@@ -31,7 +31,10 @@ const SubscriptionTable = ({ offers }: SubscriptionTableProps) => {
           <tbody className="divide-y divide-gray-100">
             {offers && offers.length > 0 ? (
               offers.map((offer) => (
-                <tr key={offer._id} className="hover:bg-gray-50/50 transition-colors">
+                <tr
+                onClick={()=> console.log(offer)
+                }
+                key={offer._id} className="hover:bg-gray-50/50 transition-colors">
                   <td className="px-6 py-4 text-right">
                     <StatusBadge status={offer.status} />
                   </td>

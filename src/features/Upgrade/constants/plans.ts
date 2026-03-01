@@ -2,14 +2,14 @@
 
 export const plans = [
     {
-        id: 'monthly',
-        nameKey: 'plan_monthly_name', // We store the translation key, not the final text
-        price: "2,500",
+        id: 'starter',
+        nameKey: 'plan_starter_name',
+        price: "990",
         currency: "DZD",
-        value: "2 m",
-        termKey: '2_Months',
+        ordersLimit: "150",
+        termKey: 'per_month',
         featuresKeys: [
-            'unlimited_leads',
+            'up_to_150_orders',
             'basic_support',
             'remove_branding'
         ],
@@ -17,31 +17,33 @@ export const plans = [
         isPopular: false
     },
     {
-        id: 'quarterly',
-        nameKey: 'plan_quarterly_name',
-        price: "4,900",
+        id: 'growth',
+        nameKey: 'plan_growth_name',
+        price: "1,500",
         currency: "DZD",
-        value: "4 m",
-        termKey: '4_Months',
+        ordersLimit: "290",
+        termKey: 'per_month',
         featuresKeys: [
+            'up_to_290_orders',
             'priority_support',
             'analytics',
-            'everything_in_monthly'
+            'everything_in_starter'
         ],
-        badgeKey: 'save_700_dzd',
-        isPopular: true // This will highlight the card
+        badgeKey: 'most_popular',
+        isPopular: true
     },
     {
-        id: 'semi_annual',
-        nameKey: 'plan_semi_annual_name',
-        price: "9,000",
+        id: 'scale',
+        nameKey: 'plan_scale_name',
+        price: "1,900",
         currency: "DZD",
-        value: "7 m",
-        termKey: '7_Months',
+        ordersLimit: "5000",
+        termKey: 'per_month',
         featuresKeys: [
+            'up_to_5000_orders',
             'vip_support',
             'api_access',
-            'everything_in_quarterly'
+            'everything_in_growth'
         ],
         badgeKey: 'best_value',
         isPopular: false

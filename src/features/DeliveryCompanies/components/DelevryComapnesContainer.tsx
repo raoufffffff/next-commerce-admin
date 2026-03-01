@@ -6,6 +6,7 @@ import { useState, type FormEvent } from 'react';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import DeliveryCompanySelector from './DeliveryCompanySelector';
+import Modal from '@/components/ui/Madel';
 
 interface DeliveryCompaniesContainerProps {
   onCancel: () => void;
@@ -110,8 +111,11 @@ const DeliveryCompaniesContainer = ({ onCancel, store, id }: DeliveryCompaniesCo
 const ConnectionModal = ({ company, setCompany, onSubmit, onClose, isLoading, error, t }: any) => {
   return (
     <>
-      <div className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm z-50" onClick={onClose} />
-      <div className="fixed z-50 top-1/2 left-1/2 w-11/12 max-w-md -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-lg p-6">
+    <Modal
+    onClose={onClose}
+    >
+
+       <div className="fixed z-50 top-1/2 left-1/2 w-11/12 max-w-md -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-lg p-6">
         <div className="flex flex-col items-center">
           <div className="w-24 h-24 mb-4 border border-gray-300 rounded-full overflow-hidden p-2">
             <img src={company.img} alt={company.name} className="object-contain w-full h-full" />
@@ -145,7 +149,7 @@ const ConnectionModal = ({ company, setCompany, onSubmit, onClose, isLoading, er
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                 placeholder={t("EnterToken")}
                 required
-              />
+                />
             </div>
 
             <div className="flex justify-between gap-4 pt-3">
@@ -160,13 +164,14 @@ const ConnectionModal = ({ company, setCompany, onSubmit, onClose, isLoading, er
                 type="submit"
                 disabled={isLoading}
                 className="flex-1 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-medium transition flex justify-center items-center"
-              >
+                >
                 {isLoading ? <Loader2 className="animate-spin h-5 w-5" /> : t("ConfirmConnection")}
               </button>
             </div>
           </form>
         </div>
       </div>
+                </Modal>
     </>
   );
 };

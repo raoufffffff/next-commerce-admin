@@ -52,6 +52,7 @@ const OrderCard = ({
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showSendConfirm, setShowSendConfirm] = useState(false);
     const [showNoteEditor, setShowNoteEditor] = useState(false);
+    const [sending, setsending] = useState(false);
     const [note, setNote] = useState(order?.note || "");
 
     useEffect(() => {
@@ -115,7 +116,7 @@ const OrderCard = ({
     };
 
      const handleSendToDelivery = async ( ) => {
-
+setsending(true)
         try {
             const response = await axios.post(`https://next-delvry.vercel.app/send-order`, {
                 company: {
@@ -137,7 +138,10 @@ const OrderCard = ({
             }
 
         } catch (err) {
-             
+                     setShowSendConfirm(false);
+
+        }finally{
+            setsending(false)
         }
     }
 
@@ -183,6 +187,7 @@ const OrderCard = ({
                 <Modal onClose={() => setShowSendConfirm(false)}>
                     <DeliverySendConfirmation
                         order={myorder}
+                        isLoading={sending}
                         showSendConfirm={showSendConfirm}
                         onConfirm={handleSendToDelivery}
                         onCancel={() => setShowSendConfirm(false)}

@@ -12,6 +12,9 @@ const companies =  [
          name: "swift_express",
          logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ227JyGZlzJ_YUhHCQxEAPOP5yUAEuDrlFQw&s" 
         },
+         {
+         name: "noas express",
+         logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAkukeClkoFhVgG6JA7XWyOymMKlrYY403tQ&s" 
+        },
      ];
-
 export default companies

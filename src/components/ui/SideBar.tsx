@@ -1,21 +1,19 @@
 import {
   Home, Store, Box, Tag, Layers, Truck, Megaphone,
-   Eye,
-   FishingHook
+  Eye,
+  FishingHook
 } from 'lucide-react';
- import {  Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { motion } from "framer-motion";
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { HiBars3BottomLeft } from "react-icons/hi2";
 import { useTranslation } from 'react-i18next';
-import UpgradeBanner from './UpgradBanner'; // Fixed typo
+import UpgradeBanner from './UpgradBanner';
 import Dropdown from './Dropdown';
 import NavItem from './NavItem';
 import SectionLabel from './SectionLabel';
 import type { SidebarProps } from '@/types';
 import { useStore } from '@/features/store/hooks/UseStore';
-
-// 1. Define Props Interface
 
 export default function Sidebar({
   isCollapsed,
@@ -23,12 +21,13 @@ export default function Sidebar({
   name,
   isPaid,
   ordersCount, 
-  storeid
+  storeid,
+  max
 }: SidebarProps) {
-  const { t, i18n } = useTranslation("account"); // 2. Initialize translation
+  const { t, i18n } = useTranslation("account");
   const currentLang = i18n.language;
   const location = useLocation();
-const {data} = useStore(storeid)
+  const {data} = useStore(storeid);
   const [expandedMenus, setExpandedMenus] = useState({
     store: false,
     orders: false,
@@ -39,7 +38,6 @@ const {data} = useStore(storeid)
     more: false,
   });
 
-  // Auto-expand menu based on URL
   useEffect(() => {
     const path = location.pathname;
     setExpandedMenus((s) => ({
@@ -72,7 +70,7 @@ const {data} = useStore(storeid)
           <motion.h1
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="font-black text-2xl bg-gradient-to-r from-teal-500 to-purple-600 bg-clip-text text-transparent truncate"
+            className="font-black text-2xl bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 bg-clip-text text-transparent truncate"
           >
             {data?.storeName}
           </motion.h1>
@@ -80,7 +78,7 @@ const {data} = useStore(storeid)
 
         <button
           onClick={toggleSidebar}
-          className="p-2 rounded-xl text-gray-500 hover:bg-purple-50 hover:text-purple-600 transition-colors"
+          className="p-2 rounded-xl text-gray-500 hover:bg-purple-100 hover:text-purple-600 transition-colors font-bold"
         >
           <HiBars3BottomLeft className="w-6 h-6" />
         </button>
@@ -93,15 +91,15 @@ const {data} = useStore(storeid)
           target="_blank"
           rel="noreferrer"
           className={`
-            group flex items-center justify-center rounded-xl transition-all duration-300 shadow-sm border
+            group flex items-center justify-center rounded-xl transition-all duration-300 shadow-sm border font-bold
             ${isCollapsed
-              ? "w-10 h-10 bg-white border-gray-200 text-teal-600 hover:bg-teal-50"
-              : "gap-3 px-4 py-3 bg-gradient-to-r from-teal-500 to-purple-600 text-white border-transparent hover:shadow-lg hover:shadow-purple-200 hover:-translate-y-0.5"
+              ? "w-10 h-10 bg-white border-purple-200 text-purple-600 hover:bg-purple-50"
+              : "gap-3 px-4 py-3 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white border-transparent hover:shadow-lg hover:shadow-purple-300 hover:-translate-y-0.5"
             }
           `}
         >
           <Eye className="w-5 h-5 flex-shrink-0" />
-          {!isCollapsed && <span className="font-bold text-sm tracking-wide">{t("yourWebsite")}</span>}
+          {!isCollapsed && <span className="font-extrabold text-sm tracking-wide">{t("yourWebsite")}</span>}
         </a>
       </div>
 
@@ -116,6 +114,7 @@ const {data} = useStore(storeid)
           label={t("Home")}
           to={`/store/${storeid}`}
           isCollapsed={isCollapsed}
+          
         />
 
         <SectionLabel label={t("Management")} isCollapsed={isCollapsed} />
@@ -158,7 +157,6 @@ const {data} = useStore(storeid)
           <NavItem onClick={toggleSidebar} isSubItem label={t("AddProducts")}  to={`/store/${storeid}/Add-Product`}   />
         </Dropdown>
 
-        {/* ... Repeated pattern for other dropdowns (Categories, Delivery, etc.) ... */}
          <Dropdown label={t("Categories")} icon={<Layers className="w-5 h-5" />} isOpen={expandedMenus.categories} toggle={() => handleToggleMenu('categories')} isCollapsed={isCollapsed} isActive={location.pathname.includes('/Categories')}>
             <NavItem onClick={toggleSidebar} isSubItem label={t("Categories")} to={`/store/${storeid}/Categories`}  />
             <NavItem onClick={toggleSidebar} isSubItem label={t("AddCategories")} to={`/store/${storeid}/add-categories`}  />
@@ -179,6 +177,7 @@ const {data} = useStore(storeid)
       {/* Upgrade Banner */}
       {!isCollapsed && (
         <UpgradeBanner
+        max={max}
           isPaid={isPaid}
           orders={ordersCount}
           toggleSidebar={toggleSidebar}
@@ -191,12 +190,12 @@ const {data} = useStore(storeid)
         to={'/'}
         className="p-4 border-t border-gray-100 bg-gray-50/80 shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-teal-400 to-purple-500 flex items-center justify-center text-white font-bold shadow-md ring-2 ring-white">
+            <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-purple-500 via-pink-500 to-orange-500 flex items-center justify-center text-white font-extrabold shadow-md ring-2 ring-white">
               {name ? name.charAt(0).toUpperCase() : "A"}
             </div>
             <div className="overflow-hidden">
-              <p className="text-sm font-bold text-gray-700 truncate">{name}</p>
-              <p className="text-xs text-gray-500 truncate">{t("StoreOwner")}</p>
+              <p className="text-sm font-extrabold text-gray-800 truncate">{name}</p>
+              <p className="text-xs font-semibold text-gray-500 truncate">{t("StoreOwner")}</p>
             </div>
           </div>
         </Link>
@@ -204,12 +203,3 @@ const {data} = useStore(storeid)
     </motion.aside>
   );
 }
-
-
-
-
-
-
-
-
-

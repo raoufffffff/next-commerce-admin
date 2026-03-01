@@ -65,6 +65,7 @@ const DashboardLayout = () => {
        { id &&
          <Sidebar
         storeid={id}
+        max={data?.maxOrder || 0 }
         isPaid={data?.isPaid}
         name={data?.name}
         ordersCount={data?.ordersCount }

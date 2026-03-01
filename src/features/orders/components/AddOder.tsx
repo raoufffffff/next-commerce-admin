@@ -2,7 +2,7 @@ import { useState, useEffect, type ChangeEvent, type FormEvent } from 'react';
 import toast from 'react-hot-toast';
 import type { orders, product } from '@/types';
 import states from "@/constants/states.json";
-import cityData from "@/constants/etat";
+import cityData from "@/constants/algeria_cities.json";
 import { useTranslation } from 'react-i18next';
 
 interface AddOrderProps {
@@ -70,7 +70,7 @@ const AddOrder = ({ postOrder, editeFull, onclose, order, products = [], id, use
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         const val = ["price", "quantity", "DelevryPrice", "total"].includes(name) ? Number(value) : value;
-
+  
         setFormData(prev => {
             const newData = { ...prev, [name]: val };
             
@@ -234,7 +234,7 @@ const AddOrder = ({ postOrder, editeFull, onclose, order, products = [], id, use
                         >
                             <option value="">Select City</option>
                             {availableCities.map((c, index) => (
-                                <option key={index} value={c.commune_name}>
+                                <option key={index} value={c.commune_name_ascii}>
                                     {c.commune_name}
                                 </option>
                             ))}
